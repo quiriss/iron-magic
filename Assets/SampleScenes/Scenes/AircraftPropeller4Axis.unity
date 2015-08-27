@@ -311,8 +311,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bf6c56c7f8c75ca4c99450be5aca5ace, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  raiseAtAltitude: 20
-  lowerAtAltitude: 20
+  raiseAtAltitude: 40
+  lowerAtAltitude: 40
 --- !u!95 &255679732
 Animator:
   serializedVersion: 3
@@ -368,15 +368,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fb9e837aae6395d48b1182bee201f814, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_PropellorModel: {fileID: 933054641}
-  m_PropellorBlur: {fileID: 1712679093}
-  m_PropellorBlurTextures:
-  - {fileID: 2800000, guid: 9bae725505bdaf5488cd1720e6f829bd, type: 3}
-  - {fileID: 2800000, guid: da369a9e24c14b04da8e0be4d9fbee0c, type: 3}
-  - {fileID: 2800000, guid: 2beb3362d4b99ed40890889c97d63cd4, type: 3}
-  m_ThrottleBlurStart: .0250000004
-  m_ThrottleBlurEnd: .400000006
-  m_MaxRpm: 200
+  m_PropellorModel: {fileID: 0}
+  m_PropellorBlur: {fileID: 0}
+  m_PropellorBlurTextures: []
+  m_ThrottleBlurStart: .25
+  m_ThrottleBlurEnd: .5
+  m_MaxRpm: 2000
 --- !u!114 &255679736
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -389,15 +386,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fb9e837aae6395d48b1182bee201f814, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_PropellorModel: {fileID: 2051572482}
-  m_PropellorBlur: {fileID: 1704118894}
-  m_PropellorBlurTextures:
-  - {fileID: 2800000, guid: 9bae725505bdaf5488cd1720e6f829bd, type: 3}
-  - {fileID: 2800000, guid: da369a9e24c14b04da8e0be4d9fbee0c, type: 3}
-  - {fileID: 2800000, guid: 2beb3362d4b99ed40890889c97d63cd4, type: 3}
-  m_ThrottleBlurStart: .0250000004
-  m_ThrottleBlurEnd: .400000006
-  m_MaxRpm: 200
+  m_PropellorModel: {fileID: 0}
+  m_PropellorBlur: {fileID: 0}
+  m_PropellorBlurTextures: []
+  m_ThrottleBlurStart: .25
+  m_ThrottleBlurEnd: .5
+  m_MaxRpm: 2000
 --- !u!114 &255679737
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -410,11 +404,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 66329fe4ad8cd59478fffdc10131da1c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_EngineSound: {fileID: 8300000, guid: f1fa78c409ee9704598f300b09f6117d, type: 3}
-  m_EngineMinThrottlePitch: .200000003
-  m_EngineMaxThrottlePitch: 1.20000005
+  m_EngineSound: {fileID: 0}
+  m_EngineMinThrottlePitch: .400000006
+  m_EngineMaxThrottlePitch: 2
   m_EngineFwdSpeedMultiplier: .00200000009
-  m_WindSound: {fileID: 8300000, guid: 38d4d0ff7855e984285fbf430385b2aa, type: 3}
+  m_WindSound: {fileID: 0}
   m_WindBasePitch: .200000003
   m_WindSpeedPitchFactor: .00400000019
   m_WindMaxSpeedVolume: 100
@@ -440,23 +434,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Smoothing: 5
-  m_ControlSurfaces:
-  - transform: {fileID: 1214127538}
-    amount: 30
-    type: 4
-    originalLocalRotation: {x: 0, y: 0, z: 0, w: 0}
-  - transform: {fileID: 315642687}
-    amount: -30
-    type: 3
-    originalLocalRotation: {x: 0, y: 0, z: 0, w: 0}
-  - transform: {fileID: 430068427}
-    amount: -30
-    type: 0
-    originalLocalRotation: {x: 0, y: 0, z: 0, w: 0}
-  - transform: {fileID: 1444317375}
-    amount: 30
-    type: 0
-    originalLocalRotation: {x: 0, y: 0, z: 0, w: 0}
+  m_ControlSurfaces: []
 --- !u!114 &255679739
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -469,17 +447,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9bed69cc1cc070e47806ce2f704f1ff2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_MaxEnginePower: 25
-  m_Lift: .0149999997
-  m_ZeroLiftSpeed: 70
-  m_RollEffect: 1
+  m_MaxEnginePower: 40
+  m_Lift: .00200000009
+  m_ZeroLiftSpeed: 300
+  m_RollEffect: .200000003
   m_PitchEffect: 1
-  m_YawEffect: .5
+  m_YawEffect: .200000003
   m_BankedTurnEffect: .5
-  m_AerodynamicEffect: .0299999993
+  m_AerodynamicEffect: .0199999996
   m_AutoTurnPitch: .5
-  m_AutoRollLevel: .100000001
-  m_AutoPitchLevel: .100000001
+  m_AutoRollLevel: .200000003
+  m_AutoPitchLevel: .200000003
   m_AirBrakesEffect: 3
   m_ThrottleChangeSpeed: .300000012
   m_DragIncreaseFactor: .00100000005
@@ -495,6 +473,11 @@ MonoBehaviour:
   YawInput: 0
   ThrottleInput: 0
   m_WheelColliders: []
+  m_RollSensitivity: .200000003
+  m_MaxRollAngle: 45
+  m_TakeoffHeight: 20
+  m_SpeedEffect: .00999999978
+  mySphere: {fileID: 0}
 --- !u!54 &255679740
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -905,7 +888,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 397098040}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 7.44000006, z: -63.9700012}
+  m_LocalPosition: {x: 0, y: 10.0900002, z: -63.9700012}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1693683429}
@@ -1927,7 +1910,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 907452337}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 64.0999985, z: 202.300003}
+  m_LocalPosition: {x: 0, y: 64.0999985, z: 240.699997}
   m_LocalScale: {x: 1.16399884, y: 41.1378479, z: 15.1810951}
   m_Children: []
   m_Father: {fileID: 1667338943}
@@ -2650,15 +2633,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b1c472a6fc6a00242a2ce75c5f46cd7b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_Target: {fileID: 1904430023}
+  m_Target: {fileID: 0}
   m_UpdateType: 0
-  targetRigidbody: {fileID: 1145997085}
-  m_Cam: {fileID: 1693683429}
-  m_Pivot: {fileID: 397098041}
+  targetRigidbody: {fileID: 0}
+  m_Cam: {fileID: 0}
+  m_Pivot: {fileID: 0}
   m_LastTargetPosition: {x: 0, y: 0, z: 0}
   m_PivotOriginalPos: {x: 0, y: 0, z: 0}
-  m_MoveSpeed: 8
+  m_MoveSpeed: 3
   m_FollowVelocity: 0
+  m_xCameraOffsetPow: 4.5
 --- !u!114 &1145997084
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2674,7 +2658,7 @@ MonoBehaviour:
   clipMoveTime: .0500000007
   returnTime: .400000006
   sphereCastRadius: .100000001
-  visualiseInEditor: 1
+  visualiseInEditor: 0
   closestDistance: .5
   dontClipTag: Player
 --- !u!54 &1145997085
@@ -3313,7 +3297,7 @@ Light:
   serializedVersion: 6
   m_Type: 1
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_Intensity: .5
+  m_Intensity: .0299999993
   m_Range: 44.5999985
   m_SpotAngle: 112
   m_CookieSize: 10
@@ -3331,7 +3315,7 @@ Light:
     serializedVersion: 2
     m_Bits: 4294967295
   m_Lightmapping: 1
-  m_BounceIntensity: 1
+  m_BounceIntensity: .579999983
   m_ShadowRadius: 0
   m_ShadowAngle: 0
   m_AreaSize: {x: 1, y: 1}
@@ -3592,27 +3576,27 @@ MonoBehaviour:
     type: 2}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1693683428}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: bd70d448b18cfbc46af26466f752332c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   visualizeFocus: 0
   focalLength: 10
-  focalSize: .699999988
-  aperture: 15
-  focalTransform: {fileID: 1323647927}
-  maxBlurSize: 1
+  focalSize: .0500000007
+  aperture: 11.5
+  focalTransform: {fileID: 0}
+  maxBlurSize: 2
   highResolution: 0
   blurType: 0
-  blurSampleCount: 0
+  blurSampleCount: 2
   nearBlur: 0
-  foregroundOverlap: 4
-  dofHdrShader: {fileID: 4800000, guid: acd613035ff3e455e8abf23fdc8c8c24, type: 3}
-  dx11BokehShader: {fileID: 4800000, guid: d8e82664aa8686642a424c88ab10164a, type: 3}
+  foregroundOverlap: 1
+  dofHdrShader: {fileID: 0}
+  dx11BokehShader: {fileID: 0}
   dx11BokehThreshold: .5
   dx11SpawnHeuristic: .0874999985
-  dx11BokehTexture: {fileID: 2800000, guid: a4cdca73d61814d33ac1587f6c163bca, type: 3}
+  dx11BokehTexture: {fileID: 0}
   dx11BokehScale: 1.20000005
   dx11BokehIntensity: 2.5
 --- !u!81 &1693683431
@@ -3679,23 +3663,22 @@ MonoBehaviour:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1693683428}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: dd6d4281e5d7cd44d8c6e38bc2c1b8d8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  mode: 1
-  intensity: .25
-  chromaticAberration: 2
-  axialAberration: 1.5
+  mode: 0
+  intensity: .375
+  chromaticAberration: .200000003
+  axialAberration: .5
   blur: 0
   blurSpread: .75
-  luminanceDependency: .00999999978
-  blurDistance: 1
-  vignetteShader: {fileID: 4800000, guid: 627943dc7a9a74286b70a4f694a0acd5, type: 3}
-  separableBlurShader: {fileID: 4800000, guid: e97c14fbb5ea04c3a902cc533d7fc5d1, type: 3}
-  chromAberrationShader: {fileID: 4800000, guid: 2b4f29398d9484ccfa9fd220449f5eee,
-    type: 3}
+  luminanceDependency: .25
+  blurDistance: 2.5
+  vignetteShader: {fileID: 0}
+  separableBlurShader: {fileID: 0}
+  chromAberrationShader: {fileID: 0}
 --- !u!114 &1693683436
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3709,9 +3692,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_BuildTargetGroup: 0
   m_Content: []
-  m_MonoBehaviours:
-  - {fileID: 1693683435}
-  - {fileID: 1693683430}
+  m_MonoBehaviours: []
   m_ChildrenOfThisObject: 0
 --- !u!1 &1704118893
 GameObject:
@@ -4665,8 +4646,8 @@ Light:
   m_Enabled: 1
   serializedVersion: 6
   m_Type: 1
-  m_Color: {r: .95588237, g: .600480258, b: .407655716, a: 1}
-  m_Intensity: 1.25
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Intensity: 3.45000005
   m_Range: 44.5999985
   m_SpotAngle: 112
   m_CookieSize: 7.51000023

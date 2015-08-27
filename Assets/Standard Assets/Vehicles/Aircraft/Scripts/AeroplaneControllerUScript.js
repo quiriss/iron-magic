@@ -34,10 +34,25 @@ public class AeroplaneControllerUScript extends MonoBehaviour
         private var m_BankedTurnAmount: float;
         private var m_Rigidbody: Rigidbody;
 	    var  m_WheelColliders:WheelCollider[];
+		private var m_xReelPosition : float;			// pozycja na osi OX, której ma trzymać się samolot (chodzi
 
+		var  m_RollSensitivity: float = 1.2f;         // How sensitively the AI applies the roll controls
+		var  m_MaxRollAngle: float = 45;             // The maximum angle that the AI will attempt to u
+        var  m_TakeoffHeight: float = 20;            // the AI will fly straight and only pitch upwards until reaching this height
+   		var  m_SpeedEffect: float = 0.01f;           // This increases the effect of the controls based on the plane's speed.
+   		private var m_TakenOff:boolean;                            // Has the plane taken off yet
 
         function  Start()
         {
+        	mySphere = GameObject.CreatePrimitive(PrimitiveType.Sphere);
+	mySphere.GetComponent.<Collider>().isTrigger = true;
+	var colliderFromT = mySphere.GetComponent("Collider");
+	Destroy(colliderFromT);
+	mySphere.transform.position = transform.position;
+	mySphere.transform.localScale = new Vector3(3,3,3);
+	_targetPoint.GetComponent.<Renderer>().enabled = false;
+	
+	
             m_Rigidbody = GetComponent.<Rigidbody>();
             // Store original drag settings, these are modified during flight.
             m_OriginalDrag = m_Rigidbody.drag;
@@ -50,21 +65,27 @@ public class AeroplaneControllerUScript extends MonoBehaviour
 					componentsInChild.motorTorque = 0.18f;
 				}
 			}
+			m_xReelPosition = transform.position.x;
         }
-
 
        function Move( pitchInput,  throttleInput,  airBrakes)
         {
+        	RollInput = 0;        	
+
             // transfer input parameters into properties.s
             PitchInput = pitchInput;
             ThrottleInput = throttleInput;
             AirBrakes = airBrakes;
 
+			StickToXReel();
+
             ClampInputs();
 
             CalculateRollAndPitchAngles();
 
-            AutoLevel();
+                       
+            AutoLevel();            
+            
 
             CalculateForwardSpeed();
 
@@ -79,8 +100,59 @@ public class AeroplaneControllerUScript extends MonoBehaviour
             CalculateTorque();
 
             CalculateAltitude();
+            
+            
         }
 
+var mySphere : GameObject =null;
+		//keeps plane from detouring from desired path	
+		function StickToXReel()
+		{
+			// adjust the yaw towards the target
+            //var localTarget = transform.InverseTransformPoint(new Vector3(m_xReelPosition, transform.position.y+transform.up,transform.position.z+transform.forward));            var targetAngleYaw = Mathf.Atan2(localTarget.x, localTarget.z);
+            var localTarget = transform.position + (transform.up * 2) + (transform.forward * 2);
+			localTarget.x = m_xReelPosition;
+			//Debug.Log('local przed: '+localTarget);
+		mySphere.transform.position = localTarget;
+  		  		    
+  		    localTarget = transform.InverseTransformPoint(localTarget);
+			//localTarget.x = -localTarget.x;
+			//localTarget.x = m_xReelPosition;
+			//Debug.Log('local po: '+localTarget);
+			//Debug.Log('plane pos: '+transform.position);
+			
+    
+			var targetAngleYaw = Mathf.Atan2(localTarget.x, localTarget.z);
+            
+            // clamp the planes roll
+            var desiredRoll = Mathf.Clamp(targetAngleYaw, -m_MaxRollAngle*Mathf.Deg2Rad, m_MaxRollAngle*Mathf.Deg2Rad);
+            //Debug.Log('desiredroll: '+desiredRoll);
+            var yawInput:float = 0;
+            var rollInput:float = 0;
+            if (!m_TakenOff)
+            {
+            	// If the planes altitude is above m_TakeoffHeight we class this as taken off
+                if (Altitude > m_TakeoffHeight)
+                {
+                	m_TakenOff = true;
+                }
+            }
+          //  else
+         //   {
+            	// now we have taken off to a safe height, we can use the rudder and ailerons to yaw and roll
+            yawInput = targetAngleYaw;
+            rollInput = -(RollAngle - desiredRoll)*m_RollSensitivity;
+         //   }
+
+            // adjust how fast the AI is changing the controls based on the speed. Faster speed = faster on the controls.
+            var currentSpeedEffect = 1 + (ForwardSpeed*m_SpeedEffect);
+            rollInput *= currentSpeedEffect;
+            yawInput *= currentSpeedEffect;
+//Debug.Log('roll input maly: '+rollInput);
+		    // pass the current input to the plane (false = because AI never uses air brakes!)
+            RollInput = rollInput;
+            YawInput = yawInput;
+		}
 
         function ClampInputs()
         {
@@ -164,6 +236,7 @@ public class AeroplaneControllerUScript extends MonoBehaviour
             // Air brakes work by directly modifying drag. This part is actually pretty realistic!
             m_Rigidbody.drag = (AirBrakes ? (m_OriginalDrag + extraDrag)*m_AirBrakesEffect : m_OriginalDrag + extraDrag);
             // Forward speed affects angular drag - at high forward speed, it's much harder for the plane to spin
+        
             m_Rigidbody.angularDrag = m_OriginalAngularDrag*ForwardSpeed;
         }
 
@@ -183,6 +256,7 @@ public class AeroplaneControllerUScript extends MonoBehaviour
                 // the the direction the plane is facing, by an amount based on this aeroFactor
                 var newVelocity = Vector3.Lerp(m_Rigidbody.velocity, transform.forward*ForwardSpeed,
                                                m_AeroFactor*ForwardSpeed*m_AerodynamicEffect*Time.deltaTime);
+                newVelocity.x = 0;
                 m_Rigidbody.velocity = newVelocity;
 
                 // also rotate the plane towards the direction of movement - this should be a very small effect, but means the plane ends up
@@ -203,6 +277,7 @@ public class AeroplaneControllerUScript extends MonoBehaviour
             forces += EnginePower*transform.forward;
             // The direction that the lift force is applied is at right angles to the plane's velocity (usually, this is 'up'!)
             var liftDirection = Vector3.Cross(m_Rigidbody.velocity, transform.right).normalized;
+      //      var liftDirection = Vector3.Cross(m_Rigidbody.velocity, transform.up).normalized;
             // The amount of lift drops off as the plane increases speed - in reality this occurs as the pilot retracts the flaps
             // shortly after takeoff, giving the plane less drag, but less lift. Because we don't simulate flaps, this is
             // a simple way of doing it automatically:
@@ -211,6 +286,8 @@ public class AeroplaneControllerUScript extends MonoBehaviour
             var liftPower = ForwardSpeed*ForwardSpeed*m_Lift*zeroLiftFactor*m_AeroFactor;
             forces += liftPower*liftDirection;
             // Apply the calculated forces to the the Rigidbody
+            
+       //     Debug.Log('forces: '+forces);
             m_Rigidbody.AddForce(forces);
         }
 
@@ -226,10 +303,13 @@ public class AeroplaneControllerUScript extends MonoBehaviour
             // Add torque for the roll based on the roll input.
             torque += -RollInput*m_RollEffect*transform.forward;
             // Add torque for banked turning.
-            torque += m_BankedTurnAmount*m_BankedTurnEffect*transform.up;
+     //       torque += m_BankedTurnAmount*m_BankedTurnEffect*transform.up;
             // The total torque is multiplied by the forward speed, so the controls have more effect at high speed,
             // and little effect at low speed, or when not moving in the direction of the nose of the plane
             // (i.e. falling while stalled)
+            
+        //    torque.x=0;
+            
             m_Rigidbody.AddTorque(torque*ForwardSpeed*m_AeroFactor);
         }
 
@@ -255,6 +335,7 @@ public class AeroplaneControllerUScript extends MonoBehaviour
         function Reset()
         {
             m_Immobilized = false;
+            m_TakenOff=false;
         }
     }
 

@@ -12,6 +12,8 @@ public class AutoCamUScript extends PivotBasedCameraRigUScript{
 
 private var m_VelocityCameraDistanceThreshold = 0.5f;
 
+	var m_xCameraOffsetPow:float=3;
+
          function Start(){
          super.Start();
              m_FollowTarget = FollowTarget;//(float deltaTime);
@@ -44,20 +46,24 @@ private var m_VelocityCameraDistanceThreshold = 0.5f;
             // camera position moves towards target position:
             transform.position = Vector3.Lerp(transform.position, m_Target.position, deltaTime*m_MoveSpeed);
             
-            Debug.Log('velo: '+targetRigidbody.velocity);
-            var targetPosition ;
-            if (targetRigidbody.velocity.magnitude>m_VelocityCameraDistanceThreshold){
-            var velocityClamped = Mathf.Clamp(targetRigidbody.velocity.magnitude,1,1.6);
-            	targetPosition = new Vector3(m_PivotOriginalPos.x,m_PivotOriginalPos.y, m_PivotOriginalPos.z *velocityClamped);
-            	}else{
-            	targetPosition = m_PivotOriginalPos;
-            	}
-                    // Debug.Log('clamped: '+velocityClamped);
-                    if (targetPosition!= m_Pivot.localPosition){
-            		m_Pivot.localPosition = Vector3.Lerp( m_Pivot.localPosition, targetPosition, deltaTime/4);//*velocityClamped);
-          //   Debug.Log(m_Pivot.localPosition);
-             }
+             // Debug.Log('velo: '+targetRigidbody.velocity);
+            var targetPosition:Vector3 ;
+            if (targetRigidbody.velocity.magnitude>m_VelocityCameraDistanceThreshold)
+            {
+            	var velocityClamped = Mathf.Clamp(targetRigidbody.velocity.magnitude,1,1.6);
+            	targetPosition = new Vector3(Mathf.Pow(velocityClamped+1, m_xCameraOffsetPow),m_PivotOriginalPos.y, m_PivotOriginalPos.z *velocityClamped);
             }
+            else
+            {
+            	targetPosition = m_PivotOriginalPos;
+            }
+            // Debug.Log('clamped: '+velocityClamped);
+            if (targetPosition!= m_Pivot.localPosition)
+            {
+            	m_Pivot.localPosition = Vector3.Lerp( m_Pivot.localPosition, targetPosition, deltaTime/4);//*velocityClamped);
+          //   Debug.Log(m_Pivot.localPosition);
+            }
+        }
 
         }
 
