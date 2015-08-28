@@ -40,8 +40,7 @@ public class AeroplaneControllerUScript extends MonoBehaviour
 		var  m_MaxRollAngle: float = 45;             // The maximum angle that the AI will attempt to u
         var  m_TakeoffHeight: float = 20;            // the AI will fly straight and only pitch upwards until reaching this height
    		var  m_SpeedEffect: float = 0.01f;           // This increases the effect of the controls based on the plane's speed.
-   		private var m_TakenOff:boolean;                            // Has the plane taken off yet
-
+   	
         function  Start()
         {
         	mySphere = GameObject.CreatePrimitive(PrimitiveType.Sphere);
@@ -50,7 +49,7 @@ public class AeroplaneControllerUScript extends MonoBehaviour
 	Destroy(colliderFromT);
 	mySphere.transform.position = transform.position;
 	mySphere.transform.localScale = new Vector3(3,3,3);
-	_targetPoint.GetComponent.<Renderer>().enabled = false;
+	mySphere.GetComponent.<Renderer>().enabled = false;
 	
 	
             m_Rigidbody = GetComponent.<Rigidbody>();
@@ -82,10 +81,8 @@ public class AeroplaneControllerUScript extends MonoBehaviour
             ClampInputs();
 
             CalculateRollAndPitchAngles();
-
                        
-            AutoLevel();            
-            
+            AutoLevel();                        
 
             CalculateForwardSpeed();
 
@@ -105,9 +102,14 @@ public class AeroplaneControllerUScript extends MonoBehaviour
         }
 
 var mySphere : GameObject =null;
+
 		//keeps plane from detouring from desired path	
 		function StickToXReel()
 		{
+		 	if (Altitude <= 0.1){
+		 		return;
+		 	}
+		 
 			// adjust the yaw towards the target
             //var localTarget = transform.InverseTransformPoint(new Vector3(m_xReelPosition, transform.position.y+transform.up,transform.position.z+transform.forward));            var targetAngleYaw = Mathf.Atan2(localTarget.x, localTarget.z);
             var localTarget = transform.position + (transform.up * 2) + (transform.forward * 2);
@@ -129,17 +131,8 @@ var mySphere : GameObject =null;
             //Debug.Log('desiredroll: '+desiredRoll);
             var yawInput:float = 0;
             var rollInput:float = 0;
-            if (!m_TakenOff)
-            {
-            	// If the planes altitude is above m_TakeoffHeight we class this as taken off
-                if (Altitude > m_TakeoffHeight)
-                {
-                	m_TakenOff = true;
-                }
-            }
-          //  else
-         //   {
-            	// now we have taken off to a safe height, we can use the rudder and ailerons to yaw and roll
+          
+            // now we have taken off to a safe height, we can use the rudder and ailerons to yaw and roll
             yawInput = targetAngleYaw;
             rollInput = -(RollAngle - desiredRoll)*m_RollSensitivity;
          //   }
@@ -335,7 +328,6 @@ var mySphere : GameObject =null;
         function Reset()
         {
             m_Immobilized = false;
-            m_TakenOff=false;
         }
     }
 

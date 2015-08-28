@@ -1,5 +1,5 @@
-import AeroplaneControllerUScript;
-//import UnityStandardAssets.CrossPlatformInput;
+import UnityStandardAssets;
+import UnityStandardAssets.CrossPlatformInput;
 
 //Allows to steer plane in up and down direction and accelerate and brake
 public class AeroplaneUserControl2AxisUScript extends MonoBehaviour
@@ -24,10 +24,10 @@ public class AeroplaneUserControl2AxisUScript extends MonoBehaviour
 
         function FixedUpdate()
         {
-            // Read input for the pitch, yaw, roll and throttle of the aeroplane.
-             var pitch = Input.GetAxis("Horizontal");// UnityStandardAssets.CrossPlatformInput.CrossPlatformInputManager.GetAxis("Vertical");
-            m_AirBrakes =Input.GetButton("Fire1");// CrossPlatformInputManager.GetButton("Fire1");           
-            m_Throttle = Input.GetAxis("Vertical");// CrossPlatformInputManager.GetAxis("Horizontal");
+        	// Read input for the pitch, yaw, roll and throttle of the aeroplane.
+       		var pitch = CrossPlatformInputManager.GetAxis("Horizontal");//Input.GetAxis("Horizontal");
+     		m_AirBrakes = CrossPlatformInputManager.GetButton("Fire1");           //Input.GetButton("Fire1");
+     		m_Throttle = CrossPlatformInputManager.GetAxis("Vertical");//Input.GetAxis("Vertical");
 #if MOBILE_INPUT
         AdjustInputForMobileControls(ref roll, ref pitch, ref m_Throttle);
 #endif
