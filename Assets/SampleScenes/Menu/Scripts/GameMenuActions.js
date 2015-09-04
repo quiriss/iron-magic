@@ -8,6 +8,9 @@ function Update () {
 
 }
 
+/*
+* Polecenia menu
+*/
 function ExitGame(){
 	#if UNITY_EDITOR
     	UnityEditor.EditorApplication.isPlaying = false;
@@ -21,3 +24,4 @@ function ExitGame(){
 function ResetLevel(){
 	Application.LoadLevelAsync(Application.loadedLevelName);
 }
+/**/

@@ -11,6 +11,7 @@ public class PivotBasedCameraRigUScript extends AbstractTargetFollowerUScript
         var  m_Pivot: Transform; // the point at which the camera pivots around
         var  m_LastTargetPosition: Vector3;
 		var m_PivotOriginalPos : Vector3;
+		var m_CamOriginalPos : Vector3;
 
         function Awake()
         {
@@ -18,6 +19,7 @@ public class PivotBasedCameraRigUScript extends AbstractTargetFollowerUScript
             m_Cam = GetComponentInChildren.<Camera>().transform;
             m_Pivot = m_Cam.parent;
             m_PivotOriginalPos = m_Pivot.localPosition;
+            m_CamOriginalPos = m_Cam.localPosition;
         }
     }
 

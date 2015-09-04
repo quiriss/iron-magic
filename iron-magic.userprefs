@@ -1,12 +1,11 @@
 ﻿<Properties>
-  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="MonoDevelop.Default" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\SampleScenes\Menu\Scripts\PauseMenu.cs">
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Standard Assets\Cameras\Scripts\AutoCamUScript.js">
     <Files>
-      <File FileName="Assets\SampleScenes\Menu\Scripts\PauseMenu.cs" Line="41" Column="1" />
-      <File FileName="Assets\SampleScenes\Menu\Scripts\MenuSceneLoader.cs" Line="1" Column="1" />
-      <File FileName="Assets\SampleScenes\Menu\Scripts\SceneAndURLLoader.cs" Line="1" Column="1" />
-      <File FileName="Assets\SampleScenes\Scripts\LevelReset.cs" Line="10" Column="65" />
-      <File FileName="Assets\SampleScenes\Menu\Scripts\GameMenuActions.js" Line="22" Column="34" />
+      <File FileName="Assets\Standard Assets\Cameras\Scripts\AutoCamUScript.js" Line="18" Column="14" />
+      <File FileName="Assets\Standard Assets\Cameras\Scripts\AbstractTargetFollowerUScript.js" Line="96" Column="1" />
+      <File FileName="Assets\Standard Assets\Vehicles\Aircraft\Scripts\AeroplaneControllerUScript.js" Line="260" Column="91" />
+      <File FileName="Assets\Standard Assets\Cameras\Scripts\PivotBasedCameraRigUScript.js" Line="14" Column="23" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>

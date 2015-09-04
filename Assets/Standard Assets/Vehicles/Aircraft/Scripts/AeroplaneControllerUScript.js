@@ -38,7 +38,7 @@ public class AeroplaneControllerUScript extends MonoBehaviour
 
 		var  m_RollSensitivity: float = 1.2f;         // How sensitively the AI applies the roll controls
 		var  m_MaxRollAngle: float = 45;             // The maximum angle that the AI will attempt to u
-        var  m_TakeoffHeight: float = 20;            // the AI will fly straight and only pitch upwards until reaching this height
+        //var  m_TakeoffHeight: float = 20;            // the AI will fly straight and only pitch upwards until reaching this height
    		var  m_SpeedEffect: float = 0.01f;           // This increases the effect of the controls based on the plane's speed.
    	
         function  Start()
@@ -67,7 +67,8 @@ public class AeroplaneControllerUScript extends MonoBehaviour
 			m_xReelPosition = transform.position.x;
         }
 
-       function Move( pitchInput,  throttleInput,  airBrakes)
+
+       	function Move( pitchInput,  throttleInput,  airBrakes)
         {
         	RollInput = 0;        	
 
@@ -101,7 +102,7 @@ public class AeroplaneControllerUScript extends MonoBehaviour
             
         }
 
-var mySphere : GameObject =null;
+private var mySphere : GameObject =null;
 
 		//keeps plane from detouring from desired path	
 		function StickToXReel()
